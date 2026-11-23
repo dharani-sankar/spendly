@@ -1236,3 +1236,67 @@ input::placeholder {
 .recharts-cartesian-axis-tick-value {
   fill: rgba(20, 26, 46, 0.72);
 }
+
+/* ---- Sign in, loading, account menu --------------------------------------- */
+.auth {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  padding: 20px;
+}
+
+.auth-card {
+  width: min(440px, 100%);
+}
+
+.auth-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.1;
+}
+
+.auth-sub {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.auth-switch {
+  text-align: center;
+  color: var(--muted);
+}
+
+.info {
+  color: var(--income);
+  font-weight: 550;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.boot {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 16px;
+  min-height: 60dvh;
+  padding: 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.boot-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.menu-email {
+  padding: 8px 14px 4px;
+  font-size: 13px;
+  color: var(--faint);
+  overflow-wrap: anywhere;
+}

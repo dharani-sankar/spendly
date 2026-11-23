@@ -87,3 +87,11 @@ src/
 
 - Data lives in one browser on one device. To move it, use **Export as CSV**.
 - Clearing browser site data deletes your entries.
+
+## Backend (Supabase)
+
+1. Create a project at supabase.com.
+2. Run `supabase/schema.sql` in the SQL Editor.
+3. Copy `.env.example` to `.env.local` and fill in the project URL and publishable (anon) key.
+4. `npm install`, then `npm run dev`.
+5. On Vercel, add the same two variables under Settings, Environment Variables, then redeploy.

@@ -10,6 +10,7 @@ export default function TransactionModal({ initial, defaultDate, currencySymbol,
   const [date, setDate] = useState(initial?.date ?? defaultDate);
   const [note, setNote] = useState(initial?.note ?? '');
   const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
   const amountRef = useRef(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
@@ -33,7 +34,7 @@ export default function TransactionModal({ initial, defaultDate, currencySymbol,
     if (!categoriesFor(next).some((c) => c.id === category)) setCategory(categoriesFor(next)[0].id);
   };
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     const value = Math.round(Number(amount) * 100) / 100;
     if (!Number.isFinite(value) || value <= 0) {
@@ -50,7 +51,14 @@ export default function TransactionModal({ initial, defaultDate, currencySymbol,
       setError('Pick a date for this transaction.');
       return;
     }
-    onSave({ id: initial?.id, type, amount: value, category, date, note: note.trim() });
+    setSaving(true);
+    try {
+      await onSave({ id: initial?.id, type, amount: value, category, date, note: note.trim() });
+    } catch (err) {
+      console.error(err);
+      setError('Could not save. Check your connection and try again.');
+      setSaving(false);
+    }
   };
 
   const noun = type === 'income' ? 'income' : 'expense';
@@ -149,8 +157,8 @@ export default function TransactionModal({ initial, defaultDate, currencySymbol,
           <button type="button" className="btn btn-outline" onClick={onClose}>
             Cancel
           </button>
-          <button type="submit" className="btn btn-primary">
-            {editing ? 'Save changes' : `Add ${noun}`}
+          <button type="submit" className="btn btn-primary" disabled={saving}>
+            {saving ? 'Saving…' : editing ? 'Save changes' : `Add ${noun}`}
           </button>
         </div>
       </form>

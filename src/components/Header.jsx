@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Download, Ellipsis, Moon, Plus, Sparkles, Sun, Trash2 } from 'lucide-react';
+import { Download, Ellipsis, LogOut, Moon, Plus, Sparkles, Sun, Trash2 } from 'lucide-react';
 import { CURRENCIES } from '../lib/constants';
 
 function Mark() {
@@ -27,6 +27,8 @@ export default function Header({
   onExport,
   onLoadSample,
   onClearAll,
+  email,
+  onSignOut,
   canExport,
 }) {
   const [open, setOpen] = useState(false);
@@ -86,6 +88,7 @@ export default function Header({
 
           {open && (
             <div className="menu-panel" role="menu">
+              {email && <p className="menu-email">{email}</p>}
               <label className="menu-field">
                 <span>Currency</span>
                 <select value={currency} onChange={(e) => onCurrency(e.target.value)}>
@@ -107,6 +110,10 @@ export default function Header({
               <button className="menu-item menu-danger" role="menuitem" onClick={run(onClearAll)}>
                 <Trash2 size={17} aria-hidden="true" />
                 Clear all data
+              </button>
+              <button className="menu-item" role="menuitem" onClick={run(onSignOut)}>
+                <LogOut size={17} aria-hidden="true" />
+                Sign out
               </button>
             </div>
           )}
